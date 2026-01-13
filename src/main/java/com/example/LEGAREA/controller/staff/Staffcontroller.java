@@ -33,7 +33,7 @@ public class Staffcontroller {
         if(staff==null)
         {
             // 空の社員情報を作成
-            staff =new StaffDetailEntity();
+            staff = new StaffDetailEntity();
         }
         model.addAttribute("staffDetail", staff);
 
