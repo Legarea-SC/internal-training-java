@@ -19,6 +19,7 @@ public class Staffcontroller {
 
     private final StaffService staffService;
 
+
     @GetMapping
     public String showEmployeeList(Model model) {
         List<StaffEntity> staffList = staffService.find();
