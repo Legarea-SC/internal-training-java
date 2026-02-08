@@ -8,10 +8,17 @@
 </head>
 <body>
 <section layout:fragment="content">
-    <!-- タイトル -->
+
+    <!-- ============================
+         タイトル
+         ============================ -->
     <h1 class="mb-4">社員情報更新</h1>
 
-    <!-- 検索フォーム -->
+    <!-- ============================
+         検索フォーム（GET /update）
+         ・社員コードを入力して検索
+         ・検索結果は staffUpdate にセットされる
+         ============================ -->
     <form th:action="@{/update}" method="get" class="row g-3 mb-3">
         <div class="col-auto">
             <label>
@@ -23,14 +30,24 @@
         </div>
     </form>
 
-    <!-- メッセージ表示 -->
+    <!-- ============================
+         メッセージ表示
+         ・検索エラー（該当なし）や更新完了メッセージ
+         ・Controller の message を表示
+         ============================ -->
     <div th:if="${message != null}" class="alert alert-warning" role="alert">
         <span th:text="${message}"></span>
     </div>
 
-    <!-- 社員詳細テーブル -->
-    <!-- 更新フォーム -->
-    <form th:action="@{/update}" th:object="${staffUpdate}" method="post" onsubmit="return true;">
+    <!-- ============================
+         更新フォーム（POST /update）
+         ・th:object="staffUpdate" にバインド
+         ・検索後に値が入る
+         ・社員コードは変更不可（readonly）
+         ============================ -->
+    <form th:action="@{/update}" th:object="${staffUpdate}" method="post">
+
+        <!-- 社員情報テーブル -->
         <table class="table table-hover table-bordered">
             <thead class="table-primary">
             <tr>
@@ -43,8 +60,10 @@
                 <th>年齢</th>
             </tr>
             </thead>
+
             <tbody>
             <tr>
+                <!-- th:field は staffUpdate のプロパティにバインドされる -->
                 <td><input type="text" th:field="*{staffId}" readonly></td>
                 <td><input type="text" th:field="*{name}"></td>
                 <td><input type="text" th:field="*{firstName}"></td>
@@ -53,13 +72,17 @@
                 <td><input type="text" th:field="*{position}"></td>
                 <td><input type="number" th:field="*{age}"></td>
             </tr>
-
             </tbody>
         </table>
+
+        <!-- ============================
+             更新ボタン & 戻るボタン
+             ============================ -->
         <div class="col-auto">
             <button type="submit" class="btn btn-warning btn-lg">更新</button>
             <a th:href="@{/}" class="btn btn-secondary btn-lg">戻る</a>
         </div>
+
     </form>
 
 </section>

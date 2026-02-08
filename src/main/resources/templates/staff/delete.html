@@ -8,34 +8,55 @@
 </head>
 <body>
 <section layout:fragment="content">
-    <!-- タイトル -->
+
+    <!-- ============================
+         タイトル
+         ============================ -->
     <h1 class="mb-4">社員情報削除</h1>
 
-    <!-- 検索フォーム -->
+    <!-- ============================
+         検索フォーム（GET /delete）
+         ・プルダウンで社員を選択
+         ・選択した staffId を GET で送信
+         ============================ -->
     <form th:action="@{/delete}" method="get" class="row g-3 mb-3">
+
+        <!-- 社員選択プルダウン -->
         <div class="col-auto">
             <select name="staffId" class="form-select">
                 <option value="" disabled selected>社員を選択してください</option>
+
+                <!-- staffList をループして選択肢を生成 -->
                 <option th:each="staff : ${staffList}"
                         th:value="${staff.staffId}"
                         th:text="${staff.staffId + ' : ' + staff.name}">
                 </option>
             </select>
-
         </div>
+
+        <!-- 検索ボタン -->
         <div class="col-auto">
             <button type="submit" class="btn btn-primary">検索</button>
         </div>
     </form>
 
-    <!-- メッセージ表示 -->
+    <!-- ============================
+         メッセージ表示
+         ・削除完了メッセージ
+         ・検索エラーメッセージ
+         ============================ -->
     <div th:if="${message != null}" class="alert alert-warning" role="alert">
         <span th:text="${message}"></span>
     </div>
 
-    <!-- 社員詳細テーブル -->
-    <!-- 削除フォーム -->
-    <form th:action="@{/delete}" th:object="${staffDelete}" method="post" onsubmit="return true;">
+    <!-- ============================
+         削除フォーム（POST /delete）
+         ・検索結果が staffDelete に入る
+         ・readonly で編集不可
+         ============================ -->
+    <form th:action="@{/delete}" th:object="${staffDelete}" method="post">
+
+        <!-- 社員情報テーブル -->
         <table class="table table-hover table-bordered">
             <thead class="table-primary">
             <tr>
@@ -48,8 +69,10 @@
                 <th>年齢</th>
             </tr>
             </thead>
+
             <tbody>
             <tr>
+                <!-- th:field は th:object のプロパティにバインド -->
                 <td><input type="text" th:field="*{staffId}" readonly></td>
                 <td><input type="text" th:field="*{name}" readonly></td>
                 <td><input type="text" th:field="*{firstName}" readonly></td>
@@ -58,13 +81,15 @@
                 <td><input type="text" th:field="*{position}" readonly></td>
                 <td><input type="number" th:field="*{age}" readonly></td>
             </tr>
-
             </tbody>
         </table>
+
+        <!-- 削除ボタン & 戻るボタン -->
         <div class="col-auto">
             <button type="submit" class="btn btn-danger btn-lg">削除</button>
             <a th:href="@{/}" class="btn btn-secondary btn-lg">戻る</a>
         </div>
+
     </form>
 
 </section>

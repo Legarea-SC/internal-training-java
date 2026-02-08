@@ -4,6 +4,9 @@ import com.example.LEGAREA.entity.StaffDetailEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Update;
 
+/***
+ * 社員情報更新SQLを実行するクラス
+ */
 @Mapper
 public interface StaffUpdateRepository {
 

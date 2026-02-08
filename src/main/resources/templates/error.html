@@ -2,18 +2,35 @@
 <html lang="ja"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/layout}"
->
+      layout:decorate="~{layout/layout}">
 <head>
-  <title>トップページ</title>
+    <title>トップページ</title>
 </head>
 <body>
+
+<!-- Bootstrap（WebJars） -->
 <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
 <section layout:fragment="content">
+
     <div class="text-center">
-        <h1 class="display-1"th:text="${status}+' '+${error}"></h1>
+
+        <!-- ============================
+             エラーコード表示
+             ・Controller や Spring のエラーハンドラから渡される
+             ・例: 404 Not Found / 500 Internal Server Error
+             ============================ -->
+        <h1 class="display-1" th:text="${status} + ' ' + ${error}"></h1>
+
+        <!-- エラーメッセージ -->
         <p>申し訳ございません。エラーが出ました</p>
+
+        <!-- ============================
+             トップページへ戻るボタン
+             ・ユーザーが操作を続けられるように誘導
+             ============================ -->
         <a th:href="@{/}" class="btn btn-primary mt-3">トップページに戻る</a>
+
     </div>
 
 </section>

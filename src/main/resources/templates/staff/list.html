@@ -8,41 +8,69 @@
 </head>
 <body>
 <section layout:fragment="content">
-    <!-- タイトル -->
+
+    <!-- ============================
+         タイトル
+         ============================ -->
     <h1 class="mb-4">社員一覧</h1>
+
+    <!-- ============================
+         メッセージ表示
+         ・登録/更新/削除後の成功メッセージ
+         ・RedirectAttributes の FlashAttribute を受け取る
+         ============================ -->
     <div th:if="${message != null}" class="alert alert-success" role="alert">
         <span th:text="${message}"></span>
     </div>
-        <div>
+
+    <div>
+
+        <!-- ============================
+             社員一覧テーブル
+             ・Controller から渡された staffList を表示
+             ・1行ずつ th:each でループ
+             ============================ -->
         <table class="table table-hover table-bordered">
             <thead class="table-primary">
-            <!-- 画面に表示するテーブルカラムを記述 -->
+
+            <!-- テーブルヘッダ -->
             <tr>
                 <th>社員コード</th>
                 <th>名前</th>
                 <th>部署</th>
-                <th>操作</th> <!-- 追加 -->
+                <th>操作</th> <!-- 詳細ボタン用 -->
             </tr>
             </thead>
+
             <tbody>
-            <!-- コントローラから渡されたパラメータをループで画面に格納 -->
-            <!-- staffListの中に社員情報が含まれているため情報を１つ取り出し画面に表示 -->
+            <!-- staffList を1件ずつ取り出して表示 -->
             <tr th:each="staff : ${staffList}">
                 <td th:text="${staff.staffId}"></td>
                 <td th:text="${staff.name}"></td>
                 <td th:text="${staff.division}"></td>
+
                 <td>
-                    <!-- 詳細ボタン -->
+                    <!-- ============================
+                         詳細ボタン
+                         ・/list/detail/{id} に遷移
+                         ・{id} に staff.staffId を埋め込む
+                         ============================ -->
                     <a th:href="@{/list/detail/{id}(id=${staff.staffId})}"
                        class="btn btn-primary btn-sm">詳細</a>
                 </td>
             </tr>
             </tbody>
         </table>
-        <!-- 戻るボタン -->
+
+        <!-- ============================
+             戻るボタン
+             ・トップページへ戻る
+             ============================ -->
         <a th:href="@{/}"
            class="btn btn-primary btn-lg">戻る</a>
+
     </div>
+
 </section>
 </body>
 </html>

@@ -8,75 +8,102 @@
 </head>
 <body>
 <section layout:fragment="content">
-    <!-- タイトル -->
+
+    <!-- ============================
+         タイトル
+         ============================ -->
     <h1 class="mb-4">社員情報追加</h1>
 
-    <!-- 入力フォーム -->
-    <form th:action="@{/input}" th:object="${staffInput}" method="post" onsubmit="return true;">
+    <!-- ============================
+         入力フォーム（POST /input）
+         ・th:object="staffInput" にバインド
+         ・各 th:field が staffInput のプロパティと紐づく
+         ・バリデーションエラーは th:errors で表示
+         ============================ -->
+    <form th:action="@{/input}" th:object="${staffInput}" method="post">
+
+        <!-- 社員コード -->
         <div class="row mb-3">
             <label for="staffId" class="col-sm-2 col-form-label">社員コード</label>
             <div class="col-sm-10">
+                <!-- 入力欄（staffInput.staffId にバインド） -->
                 <input type="text" th:field="*{staffId}" id="staffId" class="form-control"
                        placeholder="例: le999">
-                <div th:if="${#fields.hasErrors('staffId')}" th:errors="*{staffId}" class="text-danger"></div>
+                <!-- バリデーションエラー表示 -->
+                <div th:if="${#fields.hasErrors('staffId')}"
+                     th:errors="*{staffId}" class="text-danger"></div>
             </div>
         </div>
 
+        <!-- 名前 -->
         <div class="row mb-3">
             <label for="name" class="col-sm-2 col-form-label">名前</label>
             <div class="col-sm-10">
                 <input type="text" th:field="*{name}" id="name" class="form-control"
                        placeholder="例: 山田太郎">
-                <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></div>
+                <div th:if="${#fields.hasErrors('name')}"
+                     th:errors="*{name}" class="text-danger"></div>
             </div>
         </div>
 
+        <!-- 部署 -->
         <div class="row mb-3">
             <label for="division" class="col-sm-2 col-form-label">部署</label>
             <div class="col-sm-10">
                 <input type="text" th:field="*{division}" id="division" class="form-control"
                        placeholder="例: SC事業部">
-                <div th:if="${#fields.hasErrors('division')}" th:errors="*{division}" class="text-danger"></div>
+                <div th:if="${#fields.hasErrors('division')}"
+                     th:errors="*{division}" class="text-danger"></div>
             </div>
         </div>
 
+        <!-- セイ -->
         <div class="row mb-3">
             <label for="firstName" class="col-sm-2 col-form-label">セイ</label>
             <div class="col-sm-10">
                 <input type="text" th:field="*{firstName}" id="firstName" class="form-control"
                        placeholder="例: ヤマダ">
-                <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="text-danger"></div>
+                <div th:if="${#fields.hasErrors('firstName')}"
+                     th:errors="*{firstName}" class="text-danger"></div>
             </div>
         </div>
 
+        <!-- メイ -->
         <div class="row mb-3">
             <label for="lastName" class="col-sm-2 col-form-label">メイ</label>
             <div class="col-sm-10">
                 <input type="text" th:field="*{lastName}" id="lastName" class="form-control"
                        placeholder="例: タロウ">
-                <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="text-danger"></div>
+                <div th:if="${#fields.hasErrors('lastName')}"
+                     th:errors="*{lastName}" class="text-danger"></div>
             </div>
         </div>
 
+        <!-- 役職 -->
         <div class="row mb-3">
             <label for="position" class="col-sm-2 col-form-label">役職</label>
             <div class="col-sm-10">
                 <input type="text" th:field="*{position}" id="position" class="form-control">
-                <div th:if="${#fields.hasErrors('position')}" th:errors="*{position}" class="text-danger"></div>
+                <div th:if="${#fields.hasErrors('position')}"
+                     th:errors="*{position}" class="text-danger"></div>
             </div>
         </div>
 
+        <!-- 年齢 -->
         <div class="row mb-3">
             <label for="age" class="col-sm-2 col-form-label">年齢</label>
             <div class="col-sm-10">
                 <input type="number" th:field="*{age}" id="age" class="form-control"
                        placeholder="例: 30" min="0" step="1" pattern="[0-9]*">
-                <div th:if="${#fields.hasErrors('age')}" th:errors="*{age}" class="text-danger"></div>
+                <div th:if="${#fields.hasErrors('age')}"
+                     th:errors="*{age}" class="text-danger"></div>
             </div>
         </div>
 
+        <!-- ボタン -->
         <button type="submit" class="btn btn-success btn-lg">登録</button>
         <a th:href="@{/}" class="btn btn-secondary btn-lg">戻る</a>
+
     </form>
 
 </section>

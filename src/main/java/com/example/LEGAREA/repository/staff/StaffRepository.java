@@ -8,16 +8,15 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
+/***
+ * 社員情報の件s九SQLを実行するクラス
+ */
 @Mapper
 public interface StaffRepository {
 
-    //以下のメソッドが呼び出されると全件取得のSQLが走りリストとして返す
     @Select("SELECT staffid, name, division FROM staffInfo ORDER BY staffid;")
     List<StaffEntity> select();
 
-    /*以下のメソッドが呼び出されると指定されたidの情報を検索して返す
-    Optionalは指定IDの情報が存在しないかもしれない場合を考慮して使う
-     */
     @Select("SELECT si.staffid,si.name,si.division,sd.firstName,sd.lastName,sd.position, sd.age " +
             "FROM staffinfo si " +
             "INNER JOIN staffdetail sd " +

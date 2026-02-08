@@ -8,9 +8,19 @@
 </head>
 <body>
 <section layout:fragment="content">
-    <!-- タイトル -->
+
+    <!-- ============================
+         タイトル
+         ============================ -->
     <h1 class="mb-4">社員詳細情報</h1>
+
     <div>
+
+        <!-- ============================
+             社員詳細テーブル
+             ・Controller から渡された staffDetail を表示
+             ・すべて読み取り専用（表示のみ）
+             ============================ -->
         <table class="table table-hover table-bordered">
             <thead class="table-primary">
             <tr>
@@ -23,19 +33,28 @@
                 <th>年齢</th>
             </tr>
             </thead>
+
             <tbody>
-                <td th:text="${staffDetail.staffId}"></td>
-                <td th:text="${staffDetail.name}"></td>
-                <td th:text="${staffDetail.firstName}"></td>
-                <td th:text="${staffDetail.lastName}"></td>
-                <td th:text="${staffDetail.division}"></td>
-                <td th:text="${staffDetail.position}"></td>
-                <td th:text="${staffDetail.age}"></td>
+            <!-- staffDetail の各プロパティを表示 -->
+            <td th:text="${staffDetail.staffId}"></td>
+            <td th:text="${staffDetail.name}"></td>
+            <td th:text="${staffDetail.firstName}"></td>
+            <td th:text="${staffDetail.lastName}"></td>
+            <td th:text="${staffDetail.division}"></td>
+            <td th:text="${staffDetail.position}"></td>
+            <td th:text="${staffDetail.age}"></td>
             </tbody>
         </table>
+
+        <!-- ============================
+             戻るボタン
+             ・一覧画面（/list）へ戻る
+             ============================ -->
         <a th:href="@{/list}"
            class="btn btn-primary btn-lg">戻る</a>
+
     </div>
+
 </section>
 </body>
 </html>

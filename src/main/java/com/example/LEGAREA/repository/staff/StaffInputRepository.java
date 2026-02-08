@@ -5,6 +5,9 @@ import com.example.LEGAREA.entity.StaffEntity;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 
+/***
+ * 社員情報追加SQLを実行するクラス
+ */
 @Mapper
 public interface StaffInputRepository {
 

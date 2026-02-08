@@ -5,46 +5,52 @@
       layout:decorate="~{layout/layout}">
 <head>
     <title>トップページ</title>
+
+    <!-- ============================
+         Bootstrap（WebJars）読み込み
+         ============================ -->
     <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
-    <style>
-        /* ページ全体の背景色（グラデーション） */
-        body {
-            background: linear-gradient(135deg, #f0f8ff, #e6f7ff, #ccf2ff);
-            min-height: 100vh;
-        }
-        /* タイトルを華やかに */
-        h1 {
-            background: -webkit-linear-gradient(45deg, #007bff, #00c851);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: bold;
-        }
-        /* ボタンを少し影付きに */
-        .btn {
-            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-        }
-        /* ボタン群の余白 */
-        .button-area {
-            margin-top: 40px;
-        }
-    </style>
+
+
 </head>
 <body>
+
+<!-- Bootstrap JS -->
 <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 
 <section layout:fragment="content">
+
     <div class="container mt-5 text-center">
-        <!-- タイトル -->
+
+        <!-- ============================
+             タイトル（メイン見出し）
+             ============================ -->
         <h1 class="mb-4">LEGAREA社員管理へようこそ</h1>
 
-        <!-- ボタン4つ -->
+        <!-- ============================
+             メインメニュー（4つのボタン）
+             ・一覧
+             ・追加
+             ・更新
+             ・削除
+             ============================ -->
         <div class="d-grid gap-3 col-6 mx-auto button-area">
+
+            <!-- 社員一覧ページへ -->
             <a th:href="@{/list}" class="btn btn-primary btn-lg">社員一覧</a>
+
+            <!-- 社員追加ページへ -->
             <a th:href="@{/input}" class="btn btn-success btn-lg">社員追加</a>
+
+            <!-- 社員情報更新ページへ -->
             <a th:href="@{/update}" class="btn btn-info btn-lg">社員情報更新</a>
+
+            <!-- 社員削除ページへ -->
             <a th:href="@{/delete}" class="btn btn-danger btn-lg">社員削除</a>
+
         </div>
     </div>
+
 </section>
 
 </body>

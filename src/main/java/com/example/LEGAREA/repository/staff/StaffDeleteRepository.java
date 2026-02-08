@@ -5,6 +5,9 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
+/**
+ * 社員情報削除SQLを実行するクラス
+ */
 public interface StaffDeleteRepository {
 
     // 社員詳細の更新処理
