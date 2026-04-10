@@ -4,6 +4,21 @@ plugins {
     id 'io.spring.dependency-management' version '1.1.2'
 }
 
+def resolveWindowsShortPath(File dir) {
+    if (!System.getProperty('os.name').toLowerCase().contains('windows')) {
+        return dir.absolutePath
+    }
+
+    def output = new ByteArrayOutputStream()
+    exec {
+        commandLine 'cmd', '/c', "for %I in (\"${dir.absolutePath}\") do @echo %~sI"
+        standardOutput = output
+    }
+
+    def shortPath = output.toString('MS932').trim()
+    return shortPath ? shortPath : dir.absolutePath
+}
+
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
@@ -44,6 +59,16 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+
+    def projectPath = projectDir.absolutePath
+    def shortProjectPath = resolveWindowsShortPath(projectDir)
+
+    classpath = files(classpath.files.collect { file ->
+        def path = file.absolutePath
+        path.startsWith(projectPath)
+                ? new File(shortProjectPath + path.substring(projectPath.length()))
+                : file
+    })
 }
 
 tasks.named('bootRun') {
