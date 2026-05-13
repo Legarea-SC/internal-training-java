@@ -22,19 +22,14 @@ public class Staffcontroller {
     @GetMapping
     public String showEmployeeList(Model model) {
         List<StaffEntity> staffList = staffService.find();
+        model.addAttribute("staffList", staffList);
         return "staff/list";
     }
 
     @GetMapping("/detail/{staffid}")
     public String showDetail(@PathVariable String staffid, Model model) {
-        StaffDetailEntity staff = staffService.findDatail(staffid); // DBから1件取得
-
+        StaffDetailEntity staff = staffService.findDatail(staffid);
         model.addAttribute("staffDetail", staff);
-
-        return "staff/detail"; // 詳細画面テンプレート
+        return "staff/detail";
     }
-
-
-
-
 }
