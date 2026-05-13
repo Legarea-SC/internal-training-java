@@ -41,7 +41,7 @@ public class StaffInputcontroller {
         // 処理結果を次の画面で表示するための一時保存処理
         redirectAttributes.addFlashAttribute("message", message);
 
-        return "staff/input";
+        return "redirect:/list";
     }
 
 
