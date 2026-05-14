@@ -10,6 +10,7 @@ public class StaffInputEntity {
     private String staffId;
     @NotBlank(message = "名前は必須入力です")
     private String name;
+    @NotBlank(message = "部署は必須入力です")
     private String division;
     @NotBlank(message = "セイは必須入力です")
     private String firstName;
