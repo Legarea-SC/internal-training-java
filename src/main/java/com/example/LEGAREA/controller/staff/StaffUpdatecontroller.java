@@ -20,16 +20,25 @@ public class StaffUpdatecontroller {
     private final StaffService staffService;
     private final StaffUpdateService staffUpdateService;
 
-    // 社員情報更新画面表示
     @GetMapping("/update")
     public String showUpdateForm(@RequestParam(value = "staffId", required = false) String staffId,
                                  Model model) {
-        StaffDetailEntity staff = (staffId == null)
-                ? new StaffDetailEntity()
-                : staffService.findDatail(staffId);
+        StaffDetailEntity staff;
 
+        if (staffId == null || staffId.isEmpty()) {
+            staff = new StaffDetailEntity();
+            if (staffId != null) {
+                model.addAttribute("message", "該当の社員が見つかりませんでした");
+            }
+        } else {
+            staff = staffService.findDatail(staffId);
+            if (staff == null) {
+                staff = new StaffDetailEntity();
+                model.addAttribute("message", "該当の社員が見つかりませんでした");
+            }
+        }
 
-        model.addAttribute("staffUpdate", staff); //
+        model.addAttribute("staffUpdate", staff);
         return "staff/update";
     }
 
@@ -40,11 +49,8 @@ public class StaffUpdatecontroller {
         if (bindingResult.hasErrors()) {
             return "staff/update";
         }
-        String message=staffUpdateService.updateDatail(staffDetail);
-
-        // メッセージをモデルに渡す
+        String message = staffUpdateService.updateDatail(staffDetail);
         model.addAttribute("message", message);
-
         return showUpdateForm(staffDetail.getStaffId(), model);
     }
 }
