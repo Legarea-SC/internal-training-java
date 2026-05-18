@@ -1,7 +1,7 @@
 package com.example.LEGAREA.controller.staff;
 
-import com.example.LEGAREA.service.staff.StaffDatailEntity;
-import com.example.LEGAREA.service.staff.StaffEntity;
+import enetity.StaffDatailEntity;
+import enetity.StaffEntity;
 import com.example.LEGAREA.service.staff.StaffService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -28,12 +28,8 @@ public class Staffcontroller {
 
     @GetMapping("/detail/{staffid}")
     public String showDetail(@PathVariable String staffid, Model model) {
-        List<StaffDatailEntity> staff = staffService.findDatail(staffid); // DBから1件取得
+        List<StaffDatailEntity> staff = staffService.findDatail(staffid);
         model.addAttribute("staffDetailList", staff);
-        return "staff/detail"; // 詳細画面テンプレート
+        return "staff/detail";
     }
-
-
-
-
 }

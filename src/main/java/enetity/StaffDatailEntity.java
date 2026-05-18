@@ -1,12 +1,16 @@
-package com.example.LEGAREA.service.staff;
+package enetity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class StaffEntity {
+public class StaffDatailEntity {
     private String staffid;
     private String name;
     private String division;
+    private String firstName;
+    private String lastName;
+    private String position;
+    private int age;
 }
