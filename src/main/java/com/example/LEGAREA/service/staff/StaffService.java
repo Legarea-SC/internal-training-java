@@ -29,15 +29,6 @@ public class StaffService {
         staffRepository.insert(newEntity);
     }
 
-    public StaffUpdateEntity findForUpdate(String staffid) {
-        return staffRepository.selectForUpdate(staffid);
-    }
-
-    @Transactional
-    public void update(StaffUpdateEntity entity) {
-        staffRepository.update(entity);
-    }
-
     @Transactional
     public void delete(String staffid) {
         staffRepository.delete(staffid);
