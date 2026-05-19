@@ -12,5 +12,5 @@ public class StaffDatailEntity {
     private String firstName;
     private String lastName;
     private String position;
-    private int age;
+    private Integer age;
 }

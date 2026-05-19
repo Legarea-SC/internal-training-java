@@ -18,10 +18,9 @@ public interface StaffRepository {
     @Select("SELECT staffid, name, division FROM staffInfo ORDER BY staffid;")
     List<StaffEntity> select();
 
-    @Select("SELECT si.staffid,si.name,si.division,sd.firstName,sd.lastName,sd.position, sd.age\n" +
-            "FROM staffinfo si\n" +
-            "INNER JOIN staffdetail sd\n" +
-            "ON si.staffid=sd.staffid\n" +
+    @Select("SELECT si.staffid, si.name, si.division, sd.firstName, sd.lastName, sd.position, sd.age " +
+            "FROM staffinfo si " +
+            "LEFT JOIN staffdetail sd ON si.staffid = sd.staffid " +
             "WHERE si.staffid = #{staffid}")
     List<StaffDatailEntity> selectByID(@Param("staffid") String staffid);
 
@@ -31,10 +30,9 @@ public interface StaffRepository {
             """)
     void insert(@Param("task") StaffEntity newEntity);
 
-    @Select("SELECT si.staffid,si.name,si.division,sd.firstName,sd.lastName,sd.position,sd.age\n" +
-            "FROM staffinfo si\n" +
-            "INNER JOIN staffdetail sd\n" +
-            "ON si.staffid=sd.staffid\n" +
+    @Select("SELECT si.staffid, si.name, si.division, sd.firstName AS sei, sd.lastName AS mei, sd.position, sd.age " +
+            "FROM staffinfo si " +
+            "LEFT JOIN staffdetail sd ON si.staffid = sd.staffid " +
             "WHERE si.staffid = #{staffid}")
     StaffUpdateEntity selectForUpdate(@Param("staffid") String staffid);
 

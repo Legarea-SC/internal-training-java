@@ -8,37 +8,34 @@
 </head>
 <body>
 <section layout:fragment="content">
-    <!-- タイトル -->
     <h1 class="mb-4">社員一覧</h1>
+
+    <p class="text-success fw-bold" th:if="${successMessage}" th:text="${successMessage}"></p>
+    <p class="text-danger fw-bold" th:if="${errorMessage}" th:text="${errorMessage}"></p>
+
     <div>
         <table class="table table-hover table-bordered">
             <thead class="table-primary">
-            <!-- 画面に表示するテーブルカラムを記述 -->
             <tr>
                 <th>社員コード</th>
                 <th>名前</th>
                 <th>部署</th>
-                <th>操作</th> <!-- 追加 -->
+                <th>操作</th>
             </tr>
             </thead>
             <tbody>
-            <!-- コントローラから渡されたパラメータをループで画面に格納 -->
-            <!-- staffListの中に社員情報が含まれているため情報を１つ取り出し画面に表示 -->
             <tr th:each="staff : ${staffList}">
                 <td th:text="${staff.staffid}"></td>
                 <td th:text="${staff.name}"></td>
                 <td th:text="${staff.division}"></td>
                 <td>
-                    <!-- 詳細ボタン -->
                     <a th:href="@{/list/detail/{id}(id=${staff.staffid})}"
                        class="btn btn-primary btn-sm">詳細</a>
                 </td>
             </tr>
             </tbody>
         </table>
-        <!-- 戻るボタン -->
-        <a th:href="@{/}"
-           class="btn btn-primary btn-lg">戻る</a>
+        <a th:href="@{/}" class="btn btn-primary btn-lg">戻る</a>
     </div>
 </section>
 </body>
