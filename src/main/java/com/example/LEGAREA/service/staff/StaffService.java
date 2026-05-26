@@ -5,6 +5,7 @@ import com.example.LEGAREA.entity.StaffEntity;
 import com.example.LEGAREA.repository.staff.StaffRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.example.LEGAREA.entity.StaffInputEntity;
 
 import java.util.List;
 
@@ -27,9 +28,18 @@ public class StaffService {
             // 取得失敗時は空データを返す
             return new StaffDetailEntity();
         }
+    }
+    public String insertStaff(StaffInputEntity staffInput) {
 
+        int staffInfoResult = staffRepository.insertStaffInfo(staffInput);
+        int staffDetailResult = staffRepository.insertStaffDetail(staffInput);
 
+        int result = staffInfoResult + staffDetailResult;
 
-
+        if (result == 2) {
+            return "登録が正常に完了しました";
+        } else {
+            return "登録に失敗しました";
+        }
     }
 }
