@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import com.example.LEGAREA.entity.StaffInputEntity;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -34,5 +35,21 @@ public interface StaffRepository {
     @Insert("INSERT INTO staffdetail (staffid, firstName, lastName, position, age) " +
             "VALUES (#{staffId}, #{firstName}, #{lastName}, #{position}, #{age})")
     int insertStaffDetail(StaffInputEntity staffInput);
+
+    // staffinfoテーブルの社員基本情報を更新する
+    @Update("UPDATE staffinfo " +
+            "SET name = #{name}, " +
+            "division = #{division} " +
+            "WHERE staffid = #{staffId}")
+    int updateStaffInfo(StaffDetailEntity staffUpdate);
+
+    // staffdetailテーブルの社員詳細情報を更新する
+    @Update("UPDATE staffdetail " +
+            "SET firstName = #{firstName}, " +
+            "lastName = #{lastName}, " +
+            "position = #{position}, " +
+            "age = #{age} " +
+            "WHERE staffid = #{staffId}")
+    int updateStaffDetail(StaffDetailEntity staffUpdate);
 
 }

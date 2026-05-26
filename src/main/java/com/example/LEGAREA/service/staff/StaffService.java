@@ -41,5 +41,19 @@ public class StaffService {
         } else {
             return "登録に失敗しました";
         }
+
+    }
+    public String updateStaff(StaffDetailEntity staffUpdate) {
+
+        int staffInfoResult = staffRepository.updateStaffInfo(staffUpdate);
+        int staffDetailResult = staffRepository.updateStaffDetail(staffUpdate);
+
+        int result = staffInfoResult + staffDetailResult;
+
+        if (result == 2) {
+            return "更新が正常に完了しました";
+        } else {
+            return "更新に失敗しました";
+        }
     }
 }
