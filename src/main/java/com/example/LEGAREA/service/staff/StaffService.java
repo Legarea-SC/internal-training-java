@@ -56,4 +56,18 @@ public class StaffService {
             return "更新に失敗しました";
         }
     }
+    public String deleteStaff(String staffId) {
+
+        int deleteStaffDetail = staffRepository.deleteStaffDetail(staffId);
+        int deleteStaffInfo = staffRepository.deleteStaffInfo(staffId);
+
+        int result = deleteStaffDetail + deleteStaffInfo;
+
+        if (result == 2) {
+            return "削除が正常に完了しました";
+        } else {
+            return "削除に失敗しました";
+        }
+
+    }
 }

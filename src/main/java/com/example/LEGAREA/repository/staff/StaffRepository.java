@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Select;
 import com.example.LEGAREA.entity.StaffInputEntity;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.Delete;
 
 import java.util.List;
 
@@ -52,4 +53,9 @@ public interface StaffRepository {
             "WHERE staffid = #{staffId}")
     int updateStaffDetail(StaffDetailEntity staffUpdate);
 
+    @Delete("DELETE FROM staffdetail WHERE staffid = #{staffId}")
+    int deleteStaffDetail(String staffId);
+
+    @Delete("DELETE FROM staffinfo WHERE staffid = #{staffId}")
+    int deleteStaffInfo(String staffId);
 }
