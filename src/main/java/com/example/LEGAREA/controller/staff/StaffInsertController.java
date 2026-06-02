@@ -32,9 +32,41 @@ public class StaffInsertController {
             @RequestParam("age") String age,
             Model model) {
 
-        if (staffId.isBlank() || name.isBlank() || division.isBlank()
-                || firstName.isBlank() || lastName.isBlank() || age.isBlank()) {
+        boolean hasError = false;
+
+        if (staffId.isBlank()) {
+            model.addAttribute("staffIdError", "社員コードは必須です");
+            hasError = true;
+        }
+
+        if (name.isBlank()) {
+            model.addAttribute("nameError", "氏名は必須です");
+            hasError = true;
+        }
+
+        if (division.isBlank()) {
+            model.addAttribute("divisionError", "部署は必須です");
+            hasError = true;
+        }
+
+        if (firstName.isBlank()) {
+            model.addAttribute("firstNameError", "セイは必須です");
+            hasError = true;
+        }
+
+        if (lastName.isBlank()) {
+            model.addAttribute("lastNameError", "メイは必須です");
+            hasError = true;
+        }
+
+        if (age.isBlank()) {
+            model.addAttribute("ageError", "年齢は必須です");
+            hasError = true;
+        }
+
+        if (hasError) {
             model.addAttribute("message", "登録に失敗しました");
+            model.addAttribute("messageClass", "text-danger fw-bold fs-5 mb-2");
             return "staff/insert";
         }
 
@@ -57,11 +89,14 @@ public class StaffInsertController {
 
             if (result == 2) {
                 model.addAttribute("message", "登録が完了しました");
+                model.addAttribute("messageClass", "text-success fw-bold fs-5 mb-2");
             } else {
                 model.addAttribute("message", "登録に失敗しました");
+                model.addAttribute("messageClass", "text-danger fw-bold fs-5 mb-2");
             }
         } catch (Exception e) {
             model.addAttribute("message", "登録に失敗しました");
+            model.addAttribute("messageClass", "text-danger fw-bold fs-5 mb-2");
         }
         return "staff/insert";
     }
