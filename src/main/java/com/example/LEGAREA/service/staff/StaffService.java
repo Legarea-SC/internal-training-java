@@ -16,16 +16,18 @@ public class StaffService {
         return  staffRepository.select();
     }
 
-    public List<StaffDatailEntity> findDatail(String taskid) {
-
+    public List<StaffDetailEntity> findDatail(String taskid) {
 
         return staffRepository.selectByID(taskid);
-
-
     }
 
     @Transactional
-    public void create(StaffEntity newEntity) {
-        staffRepository.insert(newEntity);
+    public int create(StaffEntity newEntity, StaffDetailEntity detailEntity) {
+
+        int infoResult = staffRepository.insert(newEntity);
+
+        int detailResult = staffRepository.insertDetail(detailEntity);
+
+        return infoResult + detailResult;
     }
 }

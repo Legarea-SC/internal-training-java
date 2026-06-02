@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class StaffDatailEntity {
+public class StaffDetailEntity {
     private String staffid;
     private String name;
     private String division;

@@ -1,6 +1,6 @@
 package com.example.LEGAREA.repository.staff;
 
-import com.example.LEGAREA.service.staff.StaffDatailEntity;
+import com.example.LEGAREA.service.staff.StaffDetailEntity;
 import com.example.LEGAREA.service.staff.StaffEntity;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -24,11 +24,16 @@ public interface StaffRepository {
             "INNER JOIN staffdetail sd\n" +
             "ON si.staffid=sd.staffid\n" +
             "WHERE si.staffid = #{staffid}")
-    List<StaffDatailEntity> selectByID(@Param("staffid") String staffid);
+    List<StaffDetailEntity> selectByID(@Param("staffid") String staffid);
 
     @Insert("""
-               INSERT INTO tasks (summary, description, status)
-               VALUES (#{task.summary},#{task.description},#{task.Status})
-            """)
-    void insert(@Param("task") StaffEntity newEntity);
-}
+    INSERT INTO staffinfo (staffid, name, division)
+    VALUES (#{staff.staffid}, #{staff.name}, #{staff.division})
+""")
+    int insert(@Param("staff") StaffEntity staffEntity);
+
+    @Insert("""
+    INSERT INTO staffdetail (staffid, firstName, lastName, position, age)
+    VALUES (#{detail.staffid}, #{detail.firstName}, #{detail.lastName}, #{detail.position}, #{detail.age})
+""")
+    int insertDetail(@Param("detail") StaffDetailEntity detailEntity);}
