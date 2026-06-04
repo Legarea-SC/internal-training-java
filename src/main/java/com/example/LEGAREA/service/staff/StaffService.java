@@ -25,9 +25,15 @@ public class StaffService {
     public int create(StaffEntity newEntity, StaffDetailEntity detailEntity) {
 
         int infoResult = staffRepository.insert(newEntity);
-
         int detailResult = staffRepository.insertDetail(detailEntity);
 
         return infoResult + detailResult;
+    }
+    @Transactional
+    public int update(StaffEntity staffEntity, StaffDetailEntity detailEntity) {
+        int staffResult = staffRepository.update(staffEntity);
+        int detailResult = staffRepository.updateDetail(detailEntity);
+
+        return staffResult + detailResult;
     }
 }

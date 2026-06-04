@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -36,4 +37,25 @@ public interface StaffRepository {
     INSERT INTO staffdetail (staffid, firstName, lastName, position, age)
     VALUES (#{detail.staffid}, #{detail.firstName}, #{detail.lastName}, #{detail.position}, #{detail.age})
 """)
-    int insertDetail(@Param("detail") StaffDetailEntity detailEntity);}
+    int insertDetail(@Param("detail") StaffDetailEntity detailEntity);
+
+    @Update("""
+        UPDATE staffinfo
+        SET
+            name = #{staff.name},
+            division = #{staff.division}
+        WHERE staffid = #{staff.staffid}
+            """)
+    int update(@Param("staff") StaffEntity staff);
+
+    @Update("""
+         UPDATE staffdetail
+         SET
+             firstName = #{staffdetail.firstName},
+             lastName = #{staffdetail.lastName},
+             position = #{staffdetail.position},
+             age = #{staffdetail.age}
+         WHERE staffid = #{staffdetail.staffid}
+  """)
+    int updateDetail(@Param("staffdetail") StaffDetailEntity staffDetailEntity);
+}
