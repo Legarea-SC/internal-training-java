@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>社員情報削除</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container mt-4">
+        <h1 class="mb-4">社員情報削除</h1>
+        <p>削除したい社員コードを入力してください</p>
+
+        <!-- 検索フォーム -->
+        <form th:action="@{/delete}" method="get">
+            <div class="mb-3" style="max-width: 100px;">
+                <label for="staffId" class="form-label">社員コード</label>
+                <input type="text" id="staffId" name="staffId" class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-primary">検索</button>
+            <a th:href="@{/}" class="btn btn-secondary">戻る</a>
+        </form>
+
+        <!-- メッセージ表示 -->
+        <div th:if="${successMessage}"
+             class="alert alert-success mt-3"
+             th:text="${successMessage}">
+        </div>
+
+        <div th:if="${errorMessage}"
+             class="alert alert-danger mt-3"
+             th:text="${errorMessage}">
+        </div>
+
+        <!-- 検索結果があるときだけ表示 -->
+        <div th:if="${staffDetailList != null and !#lists.isEmpty(staffDetailList)}">
+
+            <p class="mt-4 text-danger">
+                以下の社員情報を削除します。内容を確認してください。
+            </p>
+
+            <form th:each="staffDetail : ${staffDetailList}"
+                  th:action="@{/delete}"
+                  method="post">
+
+                <table class="table table-hover table-bordered mt-3">
+                    <thead class="table-primary">
+                    <tr>
+                        <th>社員コード</th>
+                        <th>名前</th>
+                        <th>セイ</th>
+                        <th>メイ</th>
+                        <th>部署</th>
+                        <th>役職</th>
+                        <th>年齢</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr>
+                        <td th:text="${staffDetail.staffid}"></td>
+                        <td th:text="${staffDetail.name}"></td>
+                        <td th:text="${staffDetail.firstName}"></td>
+                        <td th:text="${staffDetail.lastName}"></td>
+                        <td th:text="${staffDetail.division}"></td>
+                        <td th:text="${staffDetail.position}"></td>
+                        <td th:text="${staffDetail.age}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <!-- 画面には見せないけど、削除対象の社員コードをPOSTで送る -->
+                <input type="hidden"
+                       name="staffId"
+                       th:value="${staffDetail.staffid}">
+
+                <button type="submit" class="btn btn-danger">
+                    削除
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>

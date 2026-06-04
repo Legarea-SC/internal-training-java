@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.Delete;
 
 import java.util.List;
 
@@ -28,8 +29,8 @@ public interface StaffRepository {
     List<StaffDetailEntity> selectByID(@Param("staffid") String staffid);
 
     @Insert("""
-    INSERT INTO staffinfo (staffid, name, division)
-    VALUES (#{staff.staffid}, #{staff.name}, #{staff.division})
+        INSERT INTO staffinfo (staffid, name, division)
+        VALUES (#{staff.staffid}, #{staff.name}, #{staff.division})
 """)
     int insert(@Param("staff") StaffEntity staffEntity);
 
@@ -58,4 +59,16 @@ public interface StaffRepository {
          WHERE staffid = #{staffdetail.staffid}
   """)
     int updateDetail(@Param("staffdetail") StaffDetailEntity staffDetailEntity);
+
+    @Delete("""
+        DELETE FROM staffdetail
+        WHERE staffid = #{staffId}
+        """)
+    int deleteDetail(@Param("staffId") String staffId);
+
+    @Delete("""
+        DELETE FROM staffinfo
+        WHERE staffid = #{staffId}
+        """)
+    int deleteStaff(@Param("staffId") String staffId);
 }

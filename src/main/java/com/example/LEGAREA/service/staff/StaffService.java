@@ -11,9 +11,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StaffService {
 
-    private  final StaffRepository staffRepository;
-    public List<StaffEntity> find(){
-        return  staffRepository.select();
+    private final StaffRepository staffRepository;
+
+    public List<StaffEntity> find() {
+        return staffRepository.select();
     }
 
     public List<StaffDetailEntity> findDatail(String taskid) {
@@ -29,11 +30,20 @@ public class StaffService {
 
         return infoResult + detailResult;
     }
+
     @Transactional
     public int update(StaffEntity staffEntity, StaffDetailEntity detailEntity) {
         int staffResult = staffRepository.update(staffEntity);
         int detailResult = staffRepository.updateDetail(detailEntity);
 
         return staffResult + detailResult;
+    }
+
+    @Transactional
+    public int delete(String staffId) {
+        int detailResult = staffRepository.deleteDetail(staffId);
+        int staffResult = staffRepository.deleteStaff(staffId);
+
+        return detailResult + staffResult;
     }
 }
