@@ -23,14 +23,25 @@ public class StaffDeleteController {
             @RequestParam(value = "staffId", required = false) String staffId,
             Model model) {
 
-        if (staffId != null && !staffId.isBlank()) {
-            List<StaffDetailEntity> staff = staffService.findDatail(staffId);
+        // プルダウンに表示する社員一覧を毎回渡す
+        model.addAttribute("staffList", staffService.find());
 
-            if (staff.isEmpty()) {
-                model.addAttribute("errorMessage", "該当する社員情報がありません");
-            } else {
-                model.addAttribute("staffDetail", staff.get(0));
-            }
+        // 初期表示：まだ何も選択していない
+        if (staffId == null) {
+            return "staff/delete";
+        }
+
+        // 「社員を選択してください」のまま送信された場合
+        if (staffId.isBlank()) {
+            model.addAttribute("errorMessage", "社員を選択してください");
+            return "staff/delete";
+        }
+
+        // 選択された社員コードで詳細情報を取得する
+        List<StaffDetailEntity> staff = staffService.findDatail(staffId);
+
+        if (!staff.isEmpty()) {
+            model.addAttribute("staffDetail", staff.get(0));
         }
 
         return "staff/delete";
