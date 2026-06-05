@@ -1,28 +1,29 @@
 package com.example.LEGAREA.controller.staff;
 
 import com.example.LEGAREA.service.staff.StaffDetailEntity;
+import com.example.LEGAREA.service.staff.StaffEntity;
+import com.example.LEGAREA.service.staff.StaffService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.example.LEGAREA.service.staff.StaffService;
-import com.example.LEGAREA.service.staff.StaffEntity;
-import lombok.RequiredArgsConstructor;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
-public class StaffInsertController {
+public class StaffInputController {
 
     private final StaffService staffService;
 
-    @GetMapping("/insert")
-    public String showInsert() {
-        return "staff/insert";
+    @GetMapping("/input")
+    public String showInput() {
+        return "staff/input";
     }
 
-    @PostMapping("/insert")
-    public String postInsert(
+    @PostMapping("/input")
+    public String postInput(
             @RequestParam("staffId") String staffId,
             @RequestParam("name") String name,
             @RequestParam("division") String division,
@@ -30,8 +31,9 @@ public class StaffInsertController {
             @RequestParam("lastName") String lastName,
             @RequestParam("position") String position,
             @RequestParam("age") String age,
-            Model model) {
-
+            Model model,
+            RedirectAttributes redirectAttributes
+    ) {
         boolean hasError = false;
 
         if (staffId.isBlank()) {
@@ -67,13 +69,26 @@ public class StaffInsertController {
         if (hasError) {
             model.addAttribute("message", "登録に失敗しました");
             model.addAttribute("messageClass", "text-danger fw-bold fs-5 mb-2");
-            return "staff/insert";
+            return "staff/input";
+        }
+
+        int ageInt;
+
+        try {
+            ageInt = Integer.parseInt(age);
+        } catch (NumberFormatException e) {
+            model.addAttribute("ageError", "年齢は数字で入力してください");
+            model.addAttribute("message", "登録に失敗しました");
+            model.addAttribute("messageClass", "text-danger fw-bold fs-5 mb-2");
+            return "staff/input";
         }
 
         try {
-            int ageInt = Integer.parseInt(age);
-
-            StaffEntity staffEntity = new StaffEntity(staffId, name, division);
+            StaffEntity staffEntity = new StaffEntity(
+                    staffId,
+                    name,
+                    division
+            );
 
             StaffDetailEntity detailEntity = new StaffDetailEntity(
                     staffId,
@@ -83,21 +98,24 @@ public class StaffInsertController {
                     lastName,
                     position,
                     ageInt
-        );
+            );
 
             int result = staffService.create(staffEntity, detailEntity);
 
             if (result == 2) {
-                model.addAttribute("message", "登録が完了しました");
-                model.addAttribute("messageClass", "text-success fw-bold fs-5 mb-2");
+                redirectAttributes.addFlashAttribute("message", "登録に成功しました");
+                redirectAttributes.addFlashAttribute("messageClass", "alert alert-success");
+                return "redirect:/list";
             } else {
                 model.addAttribute("message", "登録に失敗しました");
                 model.addAttribute("messageClass", "text-danger fw-bold fs-5 mb-2");
+                return "staff/input";
             }
+
         } catch (Exception e) {
             model.addAttribute("message", "登録に失敗しました");
             model.addAttribute("messageClass", "text-danger fw-bold fs-5 mb-2");
+            return "staff/input";
         }
-        return "staff/insert";
     }
 }
