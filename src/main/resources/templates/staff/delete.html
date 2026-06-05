@@ -11,20 +11,27 @@
 <section layout:fragment="content">
     <div class="container mt-4">
         <h1 class="mb-4">社員情報削除</h1>
-        <p>削除したい社員コードを入力してください</p>
+        <p>削除したい社員を選択してください</p>
 
+        <!-- 社員選択フォーム -->
         <form th:action="@{/delete}" method="get">
             <div class="d-flex gap-2 mb-3">
-                <select id="staffId" name="staffId" class="form-select" style="width: 260px;" onchange="this.form.submit()">
+                <select id="staffId"
+                        name="staffId"
+                        class="form-select"
+                        style="width: 260px;">
                     <option value="">社員を選択してください</option>
                     <option th:each="staff : ${staffList}"
                             th:value="${staff.staffid}"
                             th:text="${staff.staffid + '：' + staff.name}">
                     </option>
                 </select>
+
+                <button type="submit" class="btn btn-primary text-nowrap">検索</button>
             </div>
         </form>
 
+        <!-- メッセージ表示 -->
         <div th:if="${successMessage}"
              class="alert alert-success mt-3"
              th:text="${successMessage}">
@@ -39,6 +46,7 @@
             以下の社員情報を削除します。内容を確認してください。
         </p>
 
+        <!-- 削除対象表示フォーム -->
         <form th:action="@{/delete}" method="post">
             <table class="table table-hover table-bordered mt-3">
                 <thead class="table-primary">
