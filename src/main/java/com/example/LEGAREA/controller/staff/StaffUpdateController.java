@@ -24,14 +24,21 @@ public class StaffUpdateController {
             @RequestParam(value = "staffId", required = false) String staffId,
             Model model) {
 
-        if (staffId != null && !staffId.isBlank()) {
-            List<StaffDetailEntity> staff = staffService.findDatail(staffId);
+        if (staffId == null) {
+            return "staff/update";
+        }
 
-            if (staff.isEmpty()) {
-                model.addAttribute("errorMessage", "該当する社員情報がありません");
-            } else {
-                model.addAttribute("staffDetail", staff.get(0));
-            }
+        if (staffId.isBlank()) {
+            model.addAttribute("errorMessage", "社員コードを入力してください");
+            return "staff/update";
+        }
+
+        List<StaffDetailEntity> staff = staffService.findDatail(staffId);
+
+        if (staff.isEmpty()) {
+            model.addAttribute("errorMessage", "該当する社員情報がありません");
+        } else {
+            model.addAttribute("staffDetail", staff.get(0));
         }
 
         return "staff/update";
