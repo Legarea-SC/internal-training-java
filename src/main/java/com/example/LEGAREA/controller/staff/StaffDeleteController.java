@@ -43,7 +43,6 @@ public class StaffDeleteController {
         if (!staff.isEmpty()) {
             model.addAttribute("staffDetail", staff.get(0));
         }
-
         return "staff/delete";
     }
 
