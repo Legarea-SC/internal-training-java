@@ -13,18 +13,18 @@
         <h1 class="mb-4">社員情報削除</h1>
         <p>削除したい社員コードを入力してください</p>
 
-        <!-- 検索フォーム -->
         <form th:action="@{/delete}" method="get">
-            <div class="mb-3" style="max-width: 100px;">
-                <label for="staffId" class="form-label">社員コード</label>
-                <input type="text" id="staffId" name="staffId" class="form-control">
+            <div class="d-flex gap-2 mb-3">
+                <input type="text"
+                       id="staffId"
+                       name="staffId"
+                       class="form-control"
+                       placeholder="社員コードで検索"
+                       style="width: 260px;">
+                <button type="submit" class="btn btn-primary text-nowrap">検索</button>
             </div>
-
-            <button type="submit" class="btn btn-primary">検索</button>
-            <a th:href="@{/}" class="btn btn-secondary">戻る</a>
         </form>
 
-        <!-- メッセージ表示 -->
         <div th:if="${successMessage}"
              class="alert alert-success mt-3"
              th:text="${successMessage}">
@@ -35,53 +35,84 @@
              th:text="${errorMessage}">
         </div>
 
-        <!-- 検索結果があるときだけ表示 -->
-        <div th:if="${staffDetailList != null and !#lists.isEmpty(staffDetailList)}">
+        <p th:if="${staffDetail != null}" class="mt-4 text-danger">
+            以下の社員情報を削除します。内容を確認してください。
+        </p>
 
-            <p class="mt-4 text-danger">
-                以下の社員情報を削除します。内容を確認してください。
-            </p>
+        <form th:action="@{/delete}" method="post">
+            <table class="table table-hover table-bordered mt-3">
+                <thead class="table-primary">
+                <tr>
+                    <th>社員コード</th>
+                    <th>名前</th>
+                    <th>セイ</th>
+                    <th>メイ</th>
+                    <th>部署</th>
+                    <th>役職</th>
+                    <th>年齢</th>
+                </tr>
+                </thead>
 
-            <form th:each="staffDetail : ${staffDetailList}"
-                  th:action="@{/delete}"
-                  method="post">
+                <tbody>
+                <tr>
+                    <td>
+                        <input type="text"
+                               name="staffId"
+                               class="form-control"
+                               th:value="${staffDetail != null ? staffDetail.staffid : ''}"
+                               readonly>
+                    </td>
 
-                <table class="table table-hover table-bordered mt-3">
-                    <thead class="table-primary">
-                    <tr>
-                        <th>社員コード</th>
-                        <th>名前</th>
-                        <th>セイ</th>
-                        <th>メイ</th>
-                        <th>部署</th>
-                        <th>役職</th>
-                        <th>年齢</th>
-                    </tr>
-                    </thead>
+                    <td>
+                        <input type="text"
+                               class="form-control"
+                               th:value="${staffDetail != null ? staffDetail.name : ''}"
+                               readonly>
+                    </td>
 
-                    <tbody>
-                    <tr>
-                        <td th:text="${staffDetail.staffid}"></td>
-                        <td th:text="${staffDetail.name}"></td>
-                        <td th:text="${staffDetail.firstName}"></td>
-                        <td th:text="${staffDetail.lastName}"></td>
-                        <td th:text="${staffDetail.division}"></td>
-                        <td th:text="${staffDetail.position}"></td>
-                        <td th:text="${staffDetail.age}"></td>
-                    </tr>
-                    </tbody>
-                </table>
+                    <td>
+                        <input type="text"
+                               class="form-control"
+                               th:value="${staffDetail != null ? staffDetail.firstName : ''}"
+                               readonly>
+                    </td>
 
-                <!-- 画面には見せないけど、削除対象の社員コードをPOSTで送る -->
-                <input type="hidden"
-                       name="staffId"
-                       th:value="${staffDetail.staffid}">
+                    <td>
+                        <input type="text"
+                               class="form-control"
+                               th:value="${staffDetail != null ? staffDetail.lastName : ''}"
+                               readonly>
+                    </td>
 
-                <button type="submit" class="btn btn-danger">
-                    削除
-                </button>
-            </form>
-        </div>
+                    <td>
+                        <input type="text"
+                               class="form-control"
+                               th:value="${staffDetail != null ? staffDetail.division : ''}"
+                               readonly>
+                    </td>
+
+                    <td>
+                        <input type="text"
+                               class="form-control"
+                               th:value="${staffDetail != null ? staffDetail.position : ''}"
+                               readonly>
+                    </td>
+
+                    <td>
+                        <input type="text"
+                               class="form-control"
+                               th:value="${staffDetail != null ? staffDetail.age : ''}"
+                               readonly>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-danger">削除</button>
+                <a th:href="@{/}" class="btn btn-secondary">戻る</a>
+            </div>
+        </form>
     </div>
 </section>
 </body>

@@ -14,99 +14,102 @@
         <p>更新したい社員コードを入力してください</p>
 
         <form th:action="@{/update}" method="get">
-            <div class="mb-3" style="max-width: 100px;">
-                <label for="staffId" class="form-label">社員コード</label>
-                <input type="text" id="staffId" name="staffId" class="form-control">
+            <div class="d-flex gap-2 mb-3">
+                <input type="text"
+                       id="staffId"
+                       name="staffId"
+                       class="form-control"
+                       placeholder="社員コードで検索"
+                       style="width: 260px;">
+                <button type="submit" class="btn btn-primary text-nowrap">検索</button>
             </div>
-            <button type="submit" class="btn btn-primary">検索</button>
-            <a th:href="@{/}" class="btn btn-secondary">戻る</a>
         </form>
 
-        <div th:if="${successMessage}" class="alert alert-success mt-3" th:text="${successMessage}"></div>
+        <div th:if="${successMessage}"
+             class="alert alert-success mt-3"
+             th:text="${successMessage}">
+        </div>
 
         <div th:if="${errorMessage}"
              class="alert alert-danger mt-3"
              th:text="${errorMessage}">
         </div>
 
-        <div th:if="${staffDetailList != null and !#lists.isEmpty(staffDetailList)}">
+        <form th:action="@{/update}" method="post">
+            <table class="table table-hover table-bordered mt-4">
+                <thead class="table-primary">
+                <tr>
+                    <th>社員コード</th>
+                    <th>名前</th>
+                    <th>セイ</th>
+                    <th>メイ</th>
+                    <th>部署</th>
+                    <th>役職</th>
+                    <th>年齢</th>
+                </tr>
+                </thead>
 
-            <form th:each="staffDetail : ${staffDetailList}"
-                  th:action="@{/update}"
-                  method="post">
+                <tbody>
+                <tr>
+                    <td>
+                        <input type="text"
+                               name="staffId"
+                               class="form-control"
+                               th:value="${staffDetail != null ? staffDetail.staffid : ''}"
+                               readonly>
+                    </td>
 
-                <table class="table table-hover table-bordered mt-4">
-                    <thead class="table-primary">
-                    <tr>
-                        <th>社員コード</th>
-                        <th>名前</th>
-                        <th>セイ</th>
-                        <th>メイ</th>
-                        <th>部署</th>
-                        <th>役職</th>
-                        <th>年齢</th>
-                    </tr>
-                    </thead>
+                    <td>
+                        <input type="text"
+                               name="name"
+                               class="form-control"
+                               th:value="${staffDetail != null ? staffDetail.name : ''}">
+                    </td>
 
-                    <tbody>
-                    <tr>
-                        <td>
-                            <input type="text"
-                                   name="staffId"
-                                   th:value="${staffDetail.staffid}"
-                                   class="form-control"
-                                   readonly>
-                        </td>
+                    <td>
+                        <input type="text"
+                               name="firstName"
+                               class="form-control"
+                               th:value="${staffDetail != null ? staffDetail.firstName : ''}">
+                    </td>
 
-                        <td>
-                            <input type="text"
-                                   name="name"
-                                   th:value="${staffDetail.name}"
-                                   class="form-control">
-                        </td>
+                    <td>
+                        <input type="text"
+                               name="lastName"
+                               class="form-control"
+                               th:value="${staffDetail != null ? staffDetail.lastName : ''}">
+                    </td>
 
-                        <td>
-                            <input type="text"
-                                   name="firstName"
-                                   th:value="${staffDetail.firstName}"
-                                   class="form-control">
-                        </td>
+                    <td>
+                        <input type="text"
+                               name="division"
+                               class="form-control"
+                               th:value="${staffDetail != null ? staffDetail.division : ''}">
+                    </td>
 
-                        <td>
-                            <input type="text"
-                                   name="lastName"
-                                   th:value="${staffDetail.lastName}"
-                                   class="form-control">
-                        </td>
+                    <td>
+                        <input type="text"
+                               name="position"
+                               class="form-control"
+                               th:value="${staffDetail != null ? staffDetail.position : ''}">
+                    </td>
 
-                        <td>
-                            <input type="text"
-                                   name="division"
-                                   th:value="${staffDetail.division}"
-                                   class="form-control">
-                        </td>
+                    <td>
+                        <input type="number"
+                               name="age"
+                               class="form-control"
+                               th:value="${staffDetail != null ? staffDetail.age : ''}">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
 
-                        <td>
-                            <input type="text"
-                                   name="position"
-                                   th:value="${staffDetail.position}"
-                                   class="form-control">
-                        </td>
-
-                        <td>
-                            <input type="number"
-                                   name="age"
-                                   th:value="${staffDetail.age}"
-                                   class="form-control">
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-
-                <button type="submit" class="btn btn-success">更新</button>
-            </form>
-        </div>
-        </div>
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-warning">更新</button>
+                <a th:href="@{/}" class="btn btn-secondary">戻る</a>
+            </div>
+        </form>
+    </div>
 </section>
 </body>
 </html>

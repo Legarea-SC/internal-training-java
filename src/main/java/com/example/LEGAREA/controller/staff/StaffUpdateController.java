@@ -1,14 +1,14 @@
 package com.example.LEGAREA.controller.staff;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.ui.Model;
 import com.example.LEGAREA.service.staff.StaffDetailEntity;
 import com.example.LEGAREA.service.staff.StaffEntity;
 import com.example.LEGAREA.service.staff.StaffService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -26,14 +26,17 @@ public class StaffUpdateController {
 
         if (staffId != null && !staffId.isBlank()) {
             List<StaffDetailEntity> staff = staffService.findDatail(staffId);
+
             if (staff.isEmpty()) {
                 model.addAttribute("errorMessage", "該当する社員情報がありません");
             } else {
-                model.addAttribute("staffDetailList", staff);
+                model.addAttribute("staffDetail", staff.get(0));
             }
         }
+
         return "staff/update";
     }
+
     @PostMapping("/update")
     public String postUpdate(
             @RequestParam String staffId,
@@ -41,10 +44,17 @@ public class StaffUpdateController {
             @RequestParam String firstName,
             @RequestParam String lastName,
             @RequestParam String division,
-            @RequestParam String position,
+            @RequestParam(required = false) String position,
             @RequestParam String age,
             RedirectAttributes redirectAttributes
     ) {
+        staffId = staffId.trim();
+        name = name.trim();
+        firstName = firstName.trim();
+        lastName = lastName.trim();
+        division = division.trim();
+        age = age.trim();
+        String positionValue = position == null ? "" : position.trim();
 
         if (staffId.isBlank() || name.isBlank() || firstName.isBlank()
                 || lastName.isBlank() || division.isBlank() || age.isBlank()) {
@@ -70,9 +80,7 @@ public class StaffUpdateController {
         }
 
         StaffDetailEntity current = currentList.get(0);
-
-        String positionValue = position == null ? "" : position;
-        String currentPosition = current.getPosition() == null ? "" : current.getPosition();
+        String currentPosition = current.getPosition() == null ? "" : current.getPosition().trim();
 
         if (current.getName().equals(name)
                 && current.getFirstName().equals(firstName)
