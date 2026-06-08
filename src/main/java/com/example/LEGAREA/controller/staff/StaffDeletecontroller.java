@@ -60,6 +60,11 @@ public class StaffDeletecontroller {
     public String delete(@Valid @ModelAttribute("staffDelete") StaffDetailEntity staffDetail,
                          BindingResult bindingResult, RedirectAttributes redirectAttributes,
                          Model model) {
+
+        System.out.println("★hasErrors = " + bindingResult.hasErrors());
+        System.out.println("★errors = " + bindingResult.getAllErrors());
+        System.out.println("★staffId = [" + staffDetail.getStaffId() + "]");
+
         if (bindingResult.hasErrors()) {
             return "staff/delete";
         }

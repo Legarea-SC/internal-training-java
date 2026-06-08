@@ -20,7 +20,7 @@ public interface StaffRepository {
      */
     @Select("SELECT si.staffid,si.name,si.division,sd.firstName,sd.lastName,sd.position, sd.age " +
             "FROM staffinfo si " +
-            "INNER JOIN staffdetail sd " +
+            "LEFT JOIN staffdetail sd " +
             "ON si.staffid=sd.staffid " +
             "WHERE si.staffid = #{staffid} ")
     StaffDetailEntity selectByID(@Param("staffid") String staffid);

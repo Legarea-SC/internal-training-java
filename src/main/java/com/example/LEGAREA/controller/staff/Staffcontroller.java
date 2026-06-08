@@ -21,7 +21,10 @@ public class Staffcontroller {
 
     @GetMapping
     public String showEmployeeList(Model model) {
+        System.out.println("OK");
         List<StaffEntity> staffList = staffService.find();
+        // 取得情報を画面に渡す
+        model.addAttribute("staffList", staffList);
         return "staff/list";
     }
 

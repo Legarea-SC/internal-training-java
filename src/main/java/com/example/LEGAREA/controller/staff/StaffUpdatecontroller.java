@@ -22,14 +22,31 @@ public class StaffUpdatecontroller {
 
     // 社員情報更新画面表示
     @GetMapping("/update")
-    public String showUpdateForm(@RequestParam(value = "staffId", required = false) String staffId,
-                                 Model model) {
-        StaffDetailEntity staff = (staffId == null)
-                ? new StaffDetailEntity()
-                : staffService.findDatail(staffId);
+    public String showUpdateForm(@RequestParam(value = "staffId", required = false) String staffId, Model model) {
 
+        // 初期表示：パラメータが無い(null) → 空フォーム、メッセージは出さない
+        if (staffId == null) {
+            model.addAttribute("staffUpdate", new StaffDetailEntity());
+            return "staff/update";
+        }
 
-        model.addAttribute("staffUpdate", staff); //
+        // ② 空白で検索：パラメータはあるが空 → 空フォーム＋メッセージ
+        if (staffId.isBlank()) {
+            model.addAttribute("message", "該当の社員が見つかりませんでした");
+            model.addAttribute("staffUpdate", new StaffDetailEntity());
+            return "staff/update";
+        }
+
+        // 検索する
+        StaffDetailEntity staff = staffService.findDatail(staffId);
+
+        // ① 見つからない(null) → 空オブジェクト＋メッセージ
+        if (staff == null) {
+            model.addAttribute("message", "該当の社員が見つかりませんでした");
+            staff = new StaffDetailEntity();
+        }
+
+        model.addAttribute("staffUpdate", staff);
         return "staff/update";
     }
 
