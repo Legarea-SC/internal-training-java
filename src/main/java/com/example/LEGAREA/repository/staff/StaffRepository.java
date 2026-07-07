@@ -1,7 +1,7 @@
 package com.example.LEGAREA.repository.staff;
 
-import com.example.LEGAREA.service.staff.StaffDatailEntity;
-import com.example.LEGAREA.service.staff.StaffEntity;
+import com.example.LEGAREA.service.staff.StaffDetailEntity;
+import Entity.staff.StaffEntity;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -24,7 +24,7 @@ public interface StaffRepository {
             "INNER JOIN staffdetail sd\n" +
             "ON si.staffid=sd.staffid\n" +
             "WHERE si.staffid = #{staffid}")
-    List<StaffDatailEntity> selectByID(@Param("staffid") String staffid);
+    List<StaffDetailEntity> selectByID(@Param("staffid") String staffid);
 
     @Insert("""
                INSERT INTO tasks (summary, description, status)
