@@ -1,7 +1,7 @@
 package com.example.LEGAREA.controller.staff;
 
-import com.example.LEGAREA.service.staff.StaffDetailEntity;
-import Entity.staff.StaffEntity;
+import com.example.LEGAREA.entity.StaffDetailEntity;
+import entity.staff.StaffEntity;
 import com.example.LEGAREA.service.staff.StaffService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

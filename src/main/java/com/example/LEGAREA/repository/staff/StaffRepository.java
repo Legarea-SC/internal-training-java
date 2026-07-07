@@ -1,7 +1,7 @@
 package com.example.LEGAREA.repository.staff;
 
-import com.example.LEGAREA.service.staff.StaffDetailEntity;
-import Entity.staff.StaffEntity;
+import com.example.LEGAREA.entity.StaffDetailEntity;
+import entity.staff.StaffEntity;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
