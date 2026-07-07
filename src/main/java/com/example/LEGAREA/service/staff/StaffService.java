@@ -17,10 +17,11 @@ public class StaffService {
         return  staffRepository.select();
     }
 
-    public StaffDetailEntity findDatail(String Staffid) {
+    public StaffDetailEntity findDetail(String StaffId) {
 
         try{
-            return staffRepository.selectByID(Staffid);
+            StaffDetailEntity result = staffRepository.selectByID(StaffId);
+            return staffRepository.selectByID(StaffId);
         }
         catch (Exception ex)
         {

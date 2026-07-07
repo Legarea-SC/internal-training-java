@@ -25,12 +25,12 @@
             <!-- コントローラから渡されたパラメータをループで画面に格納 -->
             <!-- staffListの中に社員情報が含まれているため情報を１つ取り出し画面に表示 -->
             <tr th:each="staff : ${staffList}">
-                <td th:text="${staff.staffid}"></td>
+                <td th:text="${staff.staffId}"></td>
                 <td th:text="${staff.name}"></td>
                 <td th:text="${staff.division}"></td>
                 <td>
                     <!-- 詳細ボタン -->
-                    <a th:href="@{/list/detail/{id}(id=${staff.staffid})}"
+                    <a th:href="@{/list/detail/{id}(id=${staff.staffId})}"
                        class="btn btn-primary btn-sm">詳細</a>
                 </td>
             </tr>

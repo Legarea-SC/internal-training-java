@@ -4,15 +4,15 @@ import com.example.LEGAREA.entity.StaffDetailEntity;
 import com.example.LEGAREA.entity.StaffEntity;
 import com.example.LEGAREA.entity.StaffInputEntity;
 import com.example.LEGAREA.repository.staff.StaffInputRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class StaffInputService {
 
-    public final StaffInputRepository staffInput;
+    private final StaffInputRepository staffInput;
 
     @Transactional
     public String create(StaffInputEntity input) {
