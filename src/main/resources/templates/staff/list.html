@@ -10,6 +10,12 @@
 <section layout:fragment="content">
     <!-- タイトル -->
     <h1 class="mb-4">社員一覧</h1>
+    <div th:if="${message}"
+         th:class="${message == '登録に成功しました' ? 'alert alert-success' : 'alert alert-danger'}"
+         role="alert">
+        <span th:text="${message}"></span>
+    </div>
+
     <div>
         <table class="table table-hover table-bordered">
             <thead class="table-primary">
@@ -25,12 +31,12 @@
             <!-- コントローラから渡されたパラメータをループで画面に格納 -->
             <!-- staffListの中に社員情報が含まれているため情報を１つ取り出し画面に表示 -->
             <tr th:each="staff : ${staffList}">
-                <td th:text="${staff.staffid}"></td>
+                <td th:text="${staff.staffId}"></td>
                 <td th:text="${staff.name}"></td>
                 <td th:text="${staff.division}"></td>
                 <td>
                     <!-- 詳細ボタン -->
-                    <a th:href="@{/list/detail/{id}(id=${staff.staffid})}"
+                    <a th:href="@{/list/detail/{id}(id=${staff.staffId})}"
                        class="btn btn-primary btn-sm">詳細</a>
                 </td>
             </tr>

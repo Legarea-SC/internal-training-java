@@ -1,9 +1,10 @@
 package com.example.LEGAREA.service.staff;
 
+import com.example.LEGAREA.entity.StaffDetailEntity;
+import com.example.LEGAREA.entity.StaffEntity;
 import com.example.LEGAREA.repository.staff.StaffRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,16 +17,20 @@ public class StaffService {
         return  staffRepository.select();
     }
 
-    public List<StaffDatailEntity> findDatail(String taskid) {
+    public StaffDetailEntity findDetail(String StaffId) {
+
+        try{
+            StaffDetailEntity result = staffRepository.selectByID(StaffId);
+            return staffRepository.selectByID(StaffId);
+        }
+        catch (Exception ex)
+        {
+            // 取得失敗時は空データを返す
+            return new StaffDetailEntity();
+        }
 
 
-        return staffRepository.selectByID(taskid);
 
 
-    }
-
-    @Transactional
-    public void create(StaffEntity newEntity) {
-        staffRepository.insert(newEntity);
     }
 }

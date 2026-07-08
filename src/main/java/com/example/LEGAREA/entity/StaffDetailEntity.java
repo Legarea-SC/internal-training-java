@@ -1,12 +1,14 @@
-package com.example.LEGAREA.service.staff;
+package com.example.LEGAREA.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
+@Data
 @AllArgsConstructor
-public class StaffDatailEntity {
-    private String staffid;
+@NoArgsConstructor
+public class StaffDetailEntity {
+    private String staffId;
     private String name;
     private String division;
     private String firstName;
