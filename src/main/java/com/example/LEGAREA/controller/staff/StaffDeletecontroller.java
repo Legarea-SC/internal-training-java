@@ -62,6 +62,6 @@ public class StaffDeletecontroller {
                          RedirectAttributes redirectAttributes) {
         String message = staffDeleteService.deleteStaff(staffDetail);
         redirectAttributes.addFlashAttribute("message", message);
-        return "redirect:/delete";
+        return "redirect:/list";
     }
 }

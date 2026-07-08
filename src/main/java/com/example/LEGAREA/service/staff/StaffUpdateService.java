@@ -21,7 +21,7 @@ public class StaffUpdateService {
 
             staffUpdateRepository.updateStaffInfo(Entity);
             staffUpdateRepository.updateStaffDetail(Entity);
-            return "更新が正常に完了しました";
+            return "更新が正常に終了しました";
         }
         catch (Exception ex){
             return "例外が発生しました";
