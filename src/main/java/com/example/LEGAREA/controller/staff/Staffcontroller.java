@@ -29,11 +29,9 @@ public class Staffcontroller {
     @GetMapping("/detail/{staffid}")
     public String showDetail(@PathVariable String staffid, Model model) {
         StaffDetailEntity staff = staffService.findDetail(staffid); // DBから1件取得
-        model.addAttribute("staffDetailList", staff);
+        model.addAttribute("staffDetail", staff);
         return "staff/detail"; // 詳細画面テンプレート
     }
-
-
 
 
 }
