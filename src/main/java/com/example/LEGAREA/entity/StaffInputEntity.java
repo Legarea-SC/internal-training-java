@@ -15,10 +15,12 @@ public class StaffInputEntity {
 
     @NotBlank(message = "社員コードは必須入力です")
     private String staffId;
+
     @NotBlank(message = "名前は必須入力です")
     private String name;
 
-    private String division; // 任意
+    @NotBlank(message = "部署は必須入力です")
+    private String division;
 
     @NotBlank(message = "セイは必須入力です")
     private String firstName;

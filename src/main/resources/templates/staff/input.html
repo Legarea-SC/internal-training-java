@@ -37,6 +37,7 @@
       <label class="col-sm-2 col-form-label">部署</label>
       <div class="col-sm-10">
         <input type="text" th:field="*{division}" class="form-control" placeholder="例: SC事業部">
+        <div th:if="${#fields.hasErrors('division')}" th:errors="*{division}" class="text-danger"></div>
       </div>
     </div>
 
